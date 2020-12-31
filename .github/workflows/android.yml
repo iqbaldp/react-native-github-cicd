@@ -34,7 +34,7 @@ jobs:
 
 
       - name: Build Reporting
-        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅
+        run: chmod +x ./.ci-message.sh && sh .ci-message.sh
 
       - name: Build failure
         if: failure()
