@@ -21,7 +21,7 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm ci
       - run: npx jetifier
-      - run: chmod +x ./android/gradle
+      - run: chmod +x ./android/gradlew
         name: Change wrapper permissions
       - run: ./gradlew assembleRelease
         working-directory: android
