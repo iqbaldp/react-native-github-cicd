@@ -23,7 +23,7 @@ jobs:
       - run: npx jetifier
       - run: chmod +x ./gradlew
         name: Change wrapper permissions
-      - run: sudo ./gradlew assembleRelease
+      - run: ./gradlew assembleRelease
         working-directory: android
         name: Build Android apk (release)
 
