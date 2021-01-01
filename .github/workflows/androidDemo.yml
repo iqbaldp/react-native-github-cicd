@@ -26,14 +26,20 @@ jobs:
       - run: export ENVFILE=.env.demo && ./gradlew assembleDemoRelease
         working-directory: android
         name: Build Demo Android apk (release)
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-apk
+          path: '**/*.apk'
+
       - run: export ENVFILE=.env.demo && ./gradlew bundleDemoRelease
         working-directory: android
         name: Build Demo Android aab (bundle)
 
       - uses: actions/upload-artifact@v2
         with:
-          name: android-apk
-          path: '**/*.apk'
+          name: android-demo-aab
+          path: '**/*.aab'
 
 
       - name: Build Reporting
