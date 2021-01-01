@@ -34,7 +34,7 @@ jobs:
 
 
       - name: Build Reporting
-        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-408388413" -F document=@"android/app/build/outputs/apk/release/app-release.apk" https://api.telegram.org/bot1487415125:AAGT4iT1Ss3PZRKgZ8N-V1tuBheYtnK8Vkc/sendDocument
+        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-408388413" -F document=@"android/app/build/outputs/apk/demo/release/app-demo-release.apk" https://api.telegram.org/bot1487415125:AAGT4iT1Ss3PZRKgZ8N-V1tuBheYtnK8Vkc/sendDocument
 
       - name: Build failure
         if: failure()
