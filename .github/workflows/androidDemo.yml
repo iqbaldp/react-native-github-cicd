@@ -26,6 +26,9 @@ jobs:
       - run: export ENVFILE=.env.demo && ./gradlew assembleDemoRelease
         working-directory: android
         name: Build Demo Android apk (release)
+      - run: export ENVFILE=.env.demo && ./gradlew bundleDemoRelease
+        working-directory: android
+        name: Build Demo Android aab (bundle)
 
       - uses: actions/upload-artifact@v2
         with:
