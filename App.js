@@ -7,6 +7,7 @@
  */
 
 import React from 'react';
+import Config from "react-native-config";
 import {
   SafeAreaView,
   StyleSheet,
@@ -38,6 +39,7 @@ const App: () => React$Node = () => {
               <Text style={styles.footer}>Engine: Hermes</Text>
             </View>
           )}
+          <Text>{Config.app_greeting}</Text>
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>

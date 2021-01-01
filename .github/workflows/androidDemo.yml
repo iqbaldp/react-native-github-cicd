@@ -1,4 +1,4 @@
-name: Android
+name: AndroidDemo
 
 on: [pull_request]
 
@@ -23,9 +23,9 @@ jobs:
       - run: npx jetifier
       - run: chmod +x ./android/gradlew
         name: Change wrapper permissions
-      - run: ./gradlew assembleRelease
+      - run: export ENVFILE=.env.demo && gradlew assembleDemoRelease
         working-directory: android
-        name: Build Android apk (release)
+        name: Build Demo Android apk (release)
 
       - uses: actions/upload-artifact@v2
         with:
