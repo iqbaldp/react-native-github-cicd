@@ -1,4 +1,4 @@
-name: AndroidDemo
+name: BuildAndroidDemo
 
 on: [pull_request]
 
