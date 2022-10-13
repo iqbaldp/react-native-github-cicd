@@ -1,0 +1,55 @@
+name: BuildAndroidDemo
+
+on: 
+  workflow_dispatch:
+    inputs:
+      git-ref:
+        description: Git Ref (Optional)    
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js v14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Cache npm dependencies
+        uses: actions/cache@v2
+        with:
+          path: '~/.npm'
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+      - run: npx jetifier
+      - run: chmod +x ./android/gradlew
+        name: Change wrapper permissions
+      - run: export ENVFILE=.env.demo && ./gradlew assembleDemoRelease
+        working-directory: android
+        name: Build Demo Android apk (release)
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-apk
+          path: '**/*.apk'
+
+      - run: export ENVFILE=.env.demo && ./gradlew bundleDemoRelease
+        working-directory: android
+        name: Build Demo Android aab (bundle)
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: android-demo-aab
+          path: '**/*.aab'
+
+
+      - name: Build Reporting
+        run: chmod +x ./.ci-message.sh && sh .ci-message.sh ✅ && curl -v -F "chat_id=-408388413" -F document=@"android/app/build/outputs/apk/demo/release/app-demo-release.apk" https://api.telegram.org/bot1487415125:AAGT4iT1Ss3PZRKgZ8N-V1tuBheYtnK8Vkc/sendDocument
+
+      - name: Build failure
+        if: failure()
+        run: sh .ci-message.sh ❌
